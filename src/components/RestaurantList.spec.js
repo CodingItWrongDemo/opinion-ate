@@ -29,14 +29,16 @@ describe('RestaurantList', () => {
     expect(screen.getByRole('progressbar')).toBeInTheDocument();
   });
 
-  it('displays the restaurants', () => {
-    renderComponent();
-    expect(screen.getByText('Sushi Place')).toBeInTheDocument();
-    expect(screen.getByText('Pizza Place')).toBeInTheDocument();
-  });
+  describe('when loading succeeds', () => {
+    it('displays the restaurants', () => {
+      renderComponent();
+      expect(screen.getByText('Sushi Place')).toBeInTheDocument();
+      expect(screen.getByText('Pizza Place')).toBeInTheDocument();
+    });
 
-  it('does not display the loading indicator while not loading', () => {
-    renderComponent({loading: false});
-    expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+    it('does not display the loading indicator while not loading', () => {
+      renderComponent({loading: false});
+      expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+    });
   });
 });
