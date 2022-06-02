@@ -9,6 +9,7 @@ export default function RestaurantList({
   loadRestaurants,
   restaurants,
   loading,
+  loadError,
 }) {
   useEffect(() => {
     loadRestaurants();
@@ -17,7 +18,9 @@ export default function RestaurantList({
   return (
     <>
       {loading && <CircularProgress />}
-      <Alert severity="error">Restaurants could not be loaded.</Alert>
+      {loadError && (
+        <Alert severity="error">Restaurants could not be loaded.</Alert>
+      )}
       <List>
         {restaurants.map(restaurant => (
           <ListItem key={restaurant.id}>
