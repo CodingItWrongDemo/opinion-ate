@@ -34,6 +34,11 @@ describe('NewRestaurantForm', () => {
       return act(flushPromises);
     }
 
+    it('does not display a validation error', async () => {
+      await fillInForm();
+      expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
+    });
+
     it('calls createRestaurant with the name', async () => {
       await fillInForm();
       expect(createRestaurant).toHaveBeenCalledWith(restaurantName);
