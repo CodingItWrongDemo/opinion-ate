@@ -34,4 +34,9 @@ describe('RestaurantList', () => {
     expect(screen.getByText('Sushi Place')).toBeInTheDocument();
     expect(screen.getByText('Pizza Place')).toBeInTheDocument();
   });
+
+  it('does not display the loading indicator while not loading', () => {
+    renderComponent({loading: false});
+    expect(screen.queryByRole('progressbar')).not.toBeInTheDocument();
+  });
 });
