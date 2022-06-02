@@ -45,6 +45,11 @@ describe('NewRestaurantForm', () => {
       expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
     });
 
+    it('does not display a server error', async () => {
+      await fillInForm();
+      expect(screen.queryByText(serverError)).not.toBeInTheDocument();
+    });
+
     it('calls createRestaurant with the name', async () => {
       await fillInForm();
       expect(createRestaurant).toHaveBeenCalledWith(restaurantName);
