@@ -147,7 +147,7 @@ describe('NewRestaurantForm', () => {
       return act(flushPromises);
     }
 
-    it.skip('clears the server error', async () => {
+    it('clears the server error', async () => {
       await retrySubmittingForm();
       expect(screen.queryByText(serverError)).not.toBeInTheDocument();
     });
