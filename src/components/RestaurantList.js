@@ -4,14 +4,18 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 
-export default function RestaurantList({loadRestaurants, restaurants}) {
+export default function RestaurantList({
+  loadRestaurants,
+  restaurants,
+  loading,
+}) {
   useEffect(() => {
     loadRestaurants();
   }, [loadRestaurants]);
 
   return (
     <>
-      <CircularProgress />
+      {loading && <CircularProgress />}
       <List>
         {restaurants.map(restaurant => (
           <ListItem key={restaurant.id}>
