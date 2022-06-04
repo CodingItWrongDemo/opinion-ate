@@ -1,1 +1,3 @@
-export default function loadRestaurants() {}
+export default function loadRestaurants({setRestaurants}) {
+  setRestaurants();
+}
