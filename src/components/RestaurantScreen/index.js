@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import RestaurantList from './RestaurantList';
+import RestaurantList from '../RestaurantList';
 
 export default function RestaurantScreen() {
   const [restaurants, setRestaurants] = useState([]);
