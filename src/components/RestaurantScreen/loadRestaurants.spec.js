@@ -43,4 +43,24 @@ describe('loadRestaurants', () => {
       expect(setLoading).toHaveBeenLastCalledWith(false);
     });
   });
+
+  describe('when loading fails', () => {
+    let setLoading;
+    let setLoadError;
+
+    beforeEach(() => {
+      const api = {
+        loadRestaurants: () => Promise.reject(),
+      };
+
+      setLoading = jest.fn().mockName('setLoading');
+      setLoadError = jest.fn().mockName('setLoadError');
+
+      return loadRestaurants({api, setLoading, setLoadError});
+    });
+
+    it('sets an error flag', () => {
+      expect(setLoadError).toHaveBeenCalledWith(true);
+    });
+  });
 });
