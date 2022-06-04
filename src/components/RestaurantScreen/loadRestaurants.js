@@ -6,4 +6,5 @@ export default async function loadRestaurants({
   setLoading(true);
   const records = await api.loadRestaurants();
   setRestaurants(records);
+  setLoading(false);
 }
