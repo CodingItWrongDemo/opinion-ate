@@ -2,15 +2,19 @@ import loadRestaurants from './loadRestaurants';
 
 describe('loadRestaurants', () => {
   describe('while loading', () => {
-    it('sets a loading flag', () => {
+    let setLoading;
+
+    beforeEach(() => {
       const api = {
         loadRestaurants: () => new Promise(() => {}),
       };
 
-      const setLoading = jest.fn().mockName('setLoading');
+      setLoading = jest.fn().mockName('setLoading');
 
       loadRestaurants({api, setLoading});
+    });
 
+    it('sets a loading flag', () => {
       expect(setLoading).toHaveBeenCalledWith(true);
     });
   });
