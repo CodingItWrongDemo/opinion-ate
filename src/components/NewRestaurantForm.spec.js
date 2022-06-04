@@ -1,6 +1,5 @@
-import {act, render, screen} from '@testing-library/react';
+import {render, screen, waitFor} from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import flushPromises from 'flush-promises';
 import {NewRestaurantForm} from './NewRestaurantForm';
 
 describe('NewRestaurantForm', () => {
@@ -37,7 +36,9 @@ describe('NewRestaurantForm', () => {
       );
       userEvent.click(screen.getByText('Add'));
 
-      return act(flushPromises);
+      await waitFor(() =>
+        expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
+      );
     }
 
     it('does not display a validation error', async () => {
@@ -67,7 +68,7 @@ describe('NewRestaurantForm', () => {
 
       userEvent.click(screen.getByText('Add'));
 
-      return act(flushPromises);
+      await screen.findByText(requiredError);
     }
 
     it('displays a validation error', async () => {
@@ -94,7 +95,9 @@ describe('NewRestaurantForm', () => {
       );
       userEvent.click(screen.getByText('Add'));
 
-      return act(flushPromises);
+      await waitFor(() =>
+        expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
+      );
     }
 
     it('clears the validation error', async () => {
@@ -114,7 +117,7 @@ describe('NewRestaurantForm', () => {
       );
       userEvent.click(screen.getByText('Add'));
 
-      return act(flushPromises);
+      await screen.findByText(serverError);
     }
 
     it('displays a server error', async () => {
@@ -140,11 +143,12 @@ describe('NewRestaurantForm', () => {
         restaurantName,
       );
       userEvent.click(screen.getByText('Add'));
-      await act(flushPromises);
+      await screen.findByText(serverError);
 
       userEvent.click(screen.getByText('Add'));
-
-      return act(flushPromises);
+      await waitFor(() =>
+        expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
+      );
     }
 
     it('clears the server error', async () => {
