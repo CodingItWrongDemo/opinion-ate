@@ -3,6 +3,7 @@ import loadRestaurants from './loadRestaurants';
 describe('loadRestaurants', () => {
   describe('while loading', () => {
     let setLoading;
+    let setLoadError;
 
     beforeEach(() => {
       const api = {
@@ -10,12 +11,17 @@ describe('loadRestaurants', () => {
       };
 
       setLoading = jest.fn().mockName('setLoading');
+      setLoadError = jest.fn().mockName('setLoadError');
 
-      loadRestaurants({api, setLoading});
+      loadRestaurants({api, setLoading, setLoadError});
     });
 
     it('sets a loading flag', () => {
       expect(setLoading).toHaveBeenCalledWith(true);
+    });
+
+    it('clears the error flag', () => {
+      expect(setLoadError).toHaveBeenCalledWith(false);
     });
   });
 
