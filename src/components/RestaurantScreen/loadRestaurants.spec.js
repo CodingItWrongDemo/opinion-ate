@@ -73,5 +73,9 @@ describe('loadRestaurants', () => {
     it('sets an error flag', () => {
       expect(setLoadError).toHaveBeenCalledWith(true);
     });
+
+    it('clears the loading flag', () => {
+      expect(setLoading).toHaveBeenLastCalledWith(false);
+    });
   });
 });
