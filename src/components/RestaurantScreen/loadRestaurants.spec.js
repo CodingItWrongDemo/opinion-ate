@@ -41,8 +41,9 @@ describe('loadRestaurants', () => {
 
       setRestaurants = jest.fn().mockName('setRestaurants');
       setLoading = jest.fn().mockName('setLoading');
+      const setLoadError = () => {};
 
-      return loadRestaurants({api, setRestaurants, setLoading});
+      return loadRestaurants({api, setRestaurants, setLoading, setLoadError});
     });
 
     it('stores the restaurants', () => {
