@@ -16,21 +16,25 @@ describe('loadRestaurants', () => {
   });
 
   describe('when loading succeeds', () => {
-    it('stores the restaurants', async () => {
-      const records = [
-        {id: 1, name: 'Sushi Place'},
-        {id: 2, name: 'Pizza Place'},
-      ];
+    const records = [
+      {id: 1, name: 'Sushi Place'},
+      {id: 2, name: 'Pizza Place'},
+    ];
 
+    let setRestaurants;
+
+    beforeEach(() => {
       const api = {
         loadRestaurants: () => Promise.resolve(records),
       };
 
-      const setRestaurants = jest.fn().mockName('setRestaurants');
+      setRestaurants = jest.fn().mockName('setRestaurants');
       const setLoading = () => {};
 
-      await loadRestaurants({api, setRestaurants, setLoading});
+      return loadRestaurants({api, setRestaurants, setLoading});
+    });
 
+    it('stores the restaurants', () => {
       expect(setRestaurants).toHaveBeenCalledWith(records);
     });
   });
