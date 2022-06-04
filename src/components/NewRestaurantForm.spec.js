@@ -26,134 +26,84 @@ describe('NewRestaurantForm', () => {
     });
   });
 
-  describe('when filled in', () => {
-    async function fillInForm() {
-      renderComponent();
-      createRestaurant.mockResolvedValue();
-      await userEvent.type(
-        screen.getByPlaceholderText('Add Restaurant'),
-        restaurantName,
-      );
-      userEvent.click(screen.getByText('Add'));
+  it('allows successfully saving the restaurant to the server', async () => {
+    renderComponent();
+    createRestaurant.mockResolvedValue();
+    await userEvent.type(
+      screen.getByPlaceholderText('Add Restaurant'),
+      restaurantName,
+    );
+    userEvent.click(screen.getByText('Add'));
 
-      await waitFor(() =>
-        expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
-      );
-    }
+    await waitFor(() =>
+      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
+    );
 
-    it('does not display a validation error', async () => {
-      await fillInForm();
-      expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
-    });
-
-    it('does not display a server error', async () => {
-      await fillInForm();
-      expect(screen.queryByText(serverError)).not.toBeInTheDocument();
-    });
-
-    it('calls createRestaurant with the name', async () => {
-      await fillInForm();
-      expect(createRestaurant).toHaveBeenCalledWith(restaurantName);
-    });
-
-    it('clears the name', async () => {
-      await fillInForm();
-      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual('');
-    });
+    expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
+    expect(screen.queryByText(serverError)).not.toBeInTheDocument();
+    expect(createRestaurant).toHaveBeenCalledWith(restaurantName);
   });
 
-  describe('when empty', () => {
-    async function submitEmptyForm() {
-      renderComponent();
+  it('requires name to be filled in', async () => {
+    renderComponent();
 
-      userEvent.click(screen.getByText('Add'));
+    userEvent.click(screen.getByText('Add'));
 
-      await screen.findByText(requiredError);
-    }
-
-    it('displays a validation error', async () => {
-      await submitEmptyForm();
-      expect(screen.getByText(requiredError)).toBeInTheDocument();
-    });
-
-    it('does not call createRestaurant', async () => {
-      await submitEmptyForm();
-      expect(createRestaurant).not.toHaveBeenCalled();
-    });
+    await screen.findByText(requiredError);
+    expect(createRestaurant).not.toHaveBeenCalled();
   });
 
-  describe('when correcting a validation error', () => {
-    async function fixValidationError() {
-      renderComponent();
-      createRestaurant.mockResolvedValue();
+  it('allows correcting a validation error', async () => {
+    renderComponent();
+    createRestaurant.mockResolvedValue();
 
-      userEvent.click(screen.getByText('Add'));
+    userEvent.click(screen.getByText('Add'));
 
-      await userEvent.type(
-        screen.getByPlaceholderText('Add Restaurant'),
-        restaurantName,
-      );
-      userEvent.click(screen.getByText('Add'));
+    await userEvent.type(
+      screen.getByPlaceholderText('Add Restaurant'),
+      restaurantName,
+    );
+    userEvent.click(screen.getByText('Add'));
 
-      await waitFor(() =>
-        expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
-      );
-    }
-
-    it('clears the validation error', async () => {
-      await fixValidationError();
-      expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
-    });
+    await waitFor(() =>
+      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
+    );
+    expect(screen.queryByText(requiredError)).not.toBeInTheDocument();
   });
 
-  describe('when the store action rejects', () => {
-    async function fillInForm() {
-      renderComponent();
-      createRestaurant.mockRejectedValue();
+  it('displays an error when the store action rejects', async () => {
+    renderComponent();
+    createRestaurant.mockRejectedValue();
 
-      await userEvent.type(
-        screen.getByPlaceholderText('Add Restaurant'),
-        restaurantName,
-      );
-      userEvent.click(screen.getByText('Add'));
+    await userEvent.type(
+      screen.getByPlaceholderText('Add Restaurant'),
+      restaurantName,
+    );
+    userEvent.click(screen.getByText('Add'));
 
-      await screen.findByText(serverError);
-    }
+    await screen.findByText(serverError);
 
-    it('displays a server error', async () => {
-      await fillInForm();
-      expect(screen.getByText(serverError)).toBeInTheDocument();
-    });
-
-    it('does not clear the name', async () => {
-      await fillInForm();
-      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(
-        restaurantName,
-      );
-    });
+    expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(
+      restaurantName,
+    );
   });
 
-  describe('when retrying after a server error', () => {
-    async function retrySubmittingForm() {
-      renderComponent();
-      createRestaurant.mockRejectedValueOnce().mockResolvedValueOnce();
+  it('allows retrying after a server error', async () => {
+    renderComponent();
+    createRestaurant.mockRejectedValueOnce().mockResolvedValueOnce();
 
-      await userEvent.type(
-        screen.getByPlaceholderText('Add Restaurant'),
-        restaurantName,
-      );
-      userEvent.click(screen.getByText('Add'));
-      await screen.findByText(serverError);
+    await userEvent.type(
+      screen.getByPlaceholderText('Add Restaurant'),
+      restaurantName,
+    );
+    userEvent.click(screen.getByText('Add'));
+    await screen.findByText(serverError);
 
-      userEvent.click(screen.getByText('Add'));
-      await waitFor(() =>
-        expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
-      );
-    }
+    userEvent.click(screen.getByText('Add'));
+    await waitFor(() =>
+      expect(screen.getByPlaceholderText('Add Restaurant').value).toEqual(''),
+    );
 
-    it('clears the server error', async () => {
-      await retrySubmittingForm();
-      expect(screen.queryByText(serverError)).not.toBeInTheDocument();
-    });
+    expect(screen.queryByText(serverError)).not.toBeInTheDocument();
   });
 });
