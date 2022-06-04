@@ -12,5 +12,6 @@ export default async function loadRestaurants({
     setLoading(false);
   } catch {
     setLoadError(true);
+    setLoading(false);
   }
 }
