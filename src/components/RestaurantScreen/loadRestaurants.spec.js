@@ -22,6 +22,7 @@ describe('loadRestaurants', () => {
     ];
 
     let setRestaurants;
+    let setLoading;
 
     beforeEach(() => {
       const api = {
@@ -29,13 +30,17 @@ describe('loadRestaurants', () => {
       };
 
       setRestaurants = jest.fn().mockName('setRestaurants');
-      const setLoading = () => {};
+      setLoading = jest.fn().mockName('setLoading');
 
       return loadRestaurants({api, setRestaurants, setLoading});
     });
 
     it('stores the restaurants', () => {
       expect(setRestaurants).toHaveBeenCalledWith(records);
+    });
+
+    it('clears the loading flag', () => {
+      expect(setLoading).toHaveBeenLastCalledWith(false);
     });
   });
 });
