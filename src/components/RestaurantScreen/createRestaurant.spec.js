@@ -43,4 +43,12 @@ describe('createRestaurant', () => {
       ]);
     });
   });
+
+  describe('when save fails', () => {
+    it('rejects', () => {
+      api.createRestaurant.mockRejectedValue();
+      const promise = createRestaurant({api});
+      return expect(promise).rejects.toBeUndefined();
+    });
+  });
 });
