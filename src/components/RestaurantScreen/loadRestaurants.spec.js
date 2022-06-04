@@ -27,8 +27,9 @@ describe('loadRestaurants', () => {
       };
 
       const setRestaurants = jest.fn().mockName('setRestaurants');
+      const setLoading = () => {};
 
-      await loadRestaurants({api, setRestaurants});
+      await loadRestaurants({api, setRestaurants, setLoading});
 
       expect(setRestaurants).toHaveBeenCalledWith(records);
     });
