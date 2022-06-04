@@ -3,8 +3,10 @@ export default async function loadRestaurants({
   setRestaurants,
   setLoading,
 }) {
-  setLoading(true);
-  const records = await api.loadRestaurants();
-  setRestaurants(records);
-  setLoading(false);
+  try {
+    setLoading(true);
+    const records = await api.loadRestaurants();
+    setRestaurants(records);
+    setLoading(false);
+  } catch {}
 }
