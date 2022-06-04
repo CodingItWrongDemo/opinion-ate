@@ -1,10 +1,14 @@
 import {useState} from 'react';
 import RestaurantList from '../RestaurantList';
+import api from '../../api';
+import loadRestaurants from './loadRestaurants';
 
 export default function RestaurantScreen() {
   const [restaurants, setRestaurants] = useState([]);
 
-  function handleLoadRestaurants() {}
+  function handleLoadRestaurants() {
+    loadRestaurants({api, setRestaurants});
+  }
 
   return (
     <div>
