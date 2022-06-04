@@ -1,3 +1,3 @@
-export default function createRestaurant({api}) {
-  api.createRestaurant();
+export default function createRestaurant({api, name}) {
+  api.createRestaurant(name);
 }
