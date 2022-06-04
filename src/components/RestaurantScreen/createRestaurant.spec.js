@@ -15,6 +15,7 @@ describe('createRestaurant', () => {
   });
 
   it('saves the restaurant to the server', () => {
+    api.createRestaurant.mockReturnValue(new Promise(() => {}));
     createRestaurant({api, name: newRestaurantName});
     expect(api.createRestaurant).toHaveBeenCalledWith(newRestaurantName);
   });
