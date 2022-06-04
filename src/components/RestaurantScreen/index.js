@@ -1,8 +1,8 @@
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import RestaurantList from './RestaurantList';
-import NewRestaurantForm from './NewRestaurantForm';
+import RestaurantList from '../RestaurantList';
+import NewRestaurantForm from '../NewRestaurantForm';
 
 export default function RestaurantScreen() {
   return (
