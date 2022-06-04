@@ -26,7 +26,12 @@ export default function RestaurantScreen() {
       <CardContent>
         <Typography variant="h5">Restaurants</Typography>
         <NewRestaurantForm />
-        <RestaurantList />
+        <RestaurantList
+          restaurants={restaurants}
+          loadRestaurants={handleLoadRestaurants}
+          loading={loading}
+          loadError={loadError}
+        />
       </CardContent>
     </Card>
   );
