@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useCallback, useState} from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -13,9 +13,9 @@ export default function RestaurantScreen() {
   const [loading, setLoading] = useState(false);
   const [loadError, setLoadError] = useState(false);
 
-  function handleLoadRestaurants() {
+  const handleLoadRestaurants = useCallback(() => {
     loadRestaurants({api, setRestaurants, setLoading, setLoadError});
-  }
+  }, []);
 
   function handleCreateRestaurant(name) {
     createRestaurant({api, name, restaurants, setRestaurants});
