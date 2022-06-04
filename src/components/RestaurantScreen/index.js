@@ -8,9 +8,10 @@ import loadRestaurants from './loadRestaurants';
 
 export default function RestaurantScreen() {
   const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const handleLoadRestaurants = useCallback(() => {
-    loadRestaurants({api, setRestaurants});
+    loadRestaurants({api, setRestaurants, setLoading});
   }, []);
 
   return (
@@ -20,6 +21,7 @@ export default function RestaurantScreen() {
         <RestaurantList
           restaurants={restaurants}
           loadRestaurants={handleLoadRestaurants}
+          loading={loading}
         />
       </CardContent>
     </Card>
