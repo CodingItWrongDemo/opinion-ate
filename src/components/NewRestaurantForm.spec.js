@@ -66,8 +66,6 @@ describe('NewRestaurantForm', () => {
       renderComponent();
 
       userEvent.click(screen.getByText('Add'));
-
-      return act(flushPromises);
     }
 
     it('displays a validation error', async () => {
